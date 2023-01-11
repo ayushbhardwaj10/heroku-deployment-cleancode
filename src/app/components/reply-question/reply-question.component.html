@@ -1,0 +1,240 @@
+<app-header></app-header>
+<div class="container">
+  <div class="question-section">
+    <div class="question-header">
+      <p id="questionHeading">{{ questionData.title }}</p>
+      <small class="date-head">Asked on :</small>
+      <small class="date-info">{{
+        questionData.postedOn.toLocaleString() | date: "dd-MM-yyyy hh:mm:ss"
+      }}</small>
+    </div>
+    <hr />
+    <div class="question-description d-flex">
+      <div *ngIf="isLoginUserQuestion" class="vote-question d-flex flex-column align-items-center">
+        <img
+          class="upvote"
+          [src]="upVoteQuestionURL"
+          alt="upvote image"
+          (click)="voteQuestion(1)"
+        />
+        <p class="question-vote">{{ questionData.votes }}</p>
+        <img class="downvote" [src]="downVoteQuestionURL" alt="upvote
+        image" (click)="voteQuestion(-1)" />
+      </div>
+      <div></div>
+      <div class="question-details">
+        <div class="question-desc">
+          {{ questionData.description_ }}
+        </div>
+        <div
+          class="question-code display-content"
+          *ngIf="questionData.sampleCode != ''"
+        >
+          {{ questionData.sampleCode }}
+        </div>
+        <div id="tagsofQuestion" class="tags-and-userAvatar row justify-content-between">
+          <div class="tags-details col-md-6 d-flex">
+            <div class="tag" *ngFor="let tag of questionData.tags">
+              {{ tag }}
+            </div>
+          </div>
+          <div class="row col-md-6">
+            <!--             <div class="user-avatar col-md-3">
+              <img
+                class="avatar-img"
+                src="assets/images/user-avatar.png"
+                alt="user-profile-img"
+              />
+            </div> -->
+            <div class="avatar-info col-md-3">
+              <div>
+                <p class="uname">{{ questionData.author }}</p>
+                <p class="author-tag">(Author)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="response-section">
+    <div id="answersHeading">
+      <span>{{ commentsList.length }}&nbsp;</span>Answers
+    </div>
+    <hr />
+    <div *ngFor="let comment of commentsList;index as i" class="answer d-flex">
+      <div class="vote-question d-flex flex-column align-items-center" (mouseover)="giveTickOption(i,comment.commentID)" (mouseout)="removeTickOption(i,comment.commentID)">
+        <!-- <img class="upvote" src="assets/images/upvote.png" alt="upvote image" /> -->
+        <img class="upvote" [src]="commentsUpvotesURL[comment.commentID]" alt="upvote image" (click)="voteComment(1,comment.commentID)" />
+        <p class="question-vote">{{ comment.votes }}</p>
+        <!-- <img
+          class="downvote"
+          src="assets/images/downvote.png"
+          alt="upvote image"
+        /> -->
+        <img
+          class="downvote"
+          [src]="commentsDownvotesURL[comment.commentID]"
+          alt="upvote image"
+          (click)="voteComment(-1,comment.commentID)"
+        />  
+        <img src="assets/images/checked.png" class="tick cursor-pointer" [ngClass]="{'display-none': checkTickStatus(comment.commentID)}" (click)="markTickQuestion(comment.commentID)"/>
+      </div>
+      <div class="question-details">
+        <div class="question-desc">
+          {{ comment.description_ }}
+        </div>
+        <div *ngIf="comment.sampleCode" class="question-code display-content">
+          {{ comment.sampleCode }}
+        </div>
+
+        <div class="tags-and-userAvatar row justify-content-between">
+          <div class="row col-md-6 justify-content-start">
+            <div class="avatar-info col-md-3">
+              <div>
+                <p class="uname">{{ comment.author }}</p>
+                <p class="author-tag">(Author)</p>
+              </div>
+            </div>
+            <div>
+              <small class="comment-postedOn">{{
+                comment.postedOn.toLocaleString() | date: "dd-MM-yyyy hh:mm:ss"
+              }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--     <div class="answer d-flex answers-pd-top">
+      <div class="vote-question d-flex flex-column align-items-center">
+        <img class="upvote" src="assets/images/upvote.png" alt="upvote image" />
+        <p class="question-vote">-3</p>
+        <img
+          class="downvote"
+          src="assets/images/downvote.png"
+          alt="upvote image"
+        />
+      </div>
+      <div></div>
+      <div class="question-details">
+        <div class="question-desc">
+          Just install jquery in angular. Simple process
+        </div>
+        <div class="question-code" [innerHTML]="answerCode2"></div>
+        <div class="tags-and-userAvatar row justify-content-between">
+          <div class="row col-md-6">
+            <div class="avatar-info col-md-3">
+              <div>
+                <p class="uname">Katelyn_Foster0101</p>
+                <p class="author-tag">(Author)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+  <div class="reply-section">
+    <div
+      id="replyHeading"
+      data-bs-toggle="collapse"
+      href="#replyForm"
+      role="button"
+      aria-expanded="false"
+      aria-controls="replyForm"
+    >
+      Post your Answer
+    </div>
+    <hr />
+    <div class="collapse reply-form" id="replyForm">
+      <form [formGroup]="postCommentForm">
+        <label for="reply-description" class="form-label reply-label"
+          >Comment Description
+        </label>
+        <textarea
+          class="form-control"
+          id="reply-description"
+          rows="3"
+          formControlName="ansDescription"
+        ></textarea>
+        <label for="reply-code" class="form-label reply-label pd-t1"
+          >Code</label
+        >
+        <textarea
+          class="form-control"
+          id="reply-code"
+          rows="10"
+          formControlName="sampleCode"
+        ></textarea>
+
+        <small class="comment-desc-invalid"
+          >Comment Description cannot be empty</small
+        >
+        <button
+          type="button"
+          class="btn btn-primary mg-t1"
+          (click)="submitComment()"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
+
+<button
+  id="openCommentSuccessModal"
+  type="button"
+  class="btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#exampleModal"
+  class="display-none"
+>
+  Launch signup success modal
+</button>
+
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <button
+        id="closeCommentSuccessModal"
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+        class="display-none"
+      ></button>
+
+      <div class="modal-body">Comment posted Succesfully</div>
+      <div>
+        <div>
+          <svg
+            class="checkmark"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 52 52"
+          >
+            <circle
+              class="checkmark__circle"
+              cx="26"
+              cy="26"
+              r="25"
+              fill="none"
+            />
+            <path
+              class="checkmark__check"
+              fill="none"
+              d="M14.1 27.2l7.1 7.2 16.7-16.8"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

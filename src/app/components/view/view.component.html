@@ -1,0 +1,202 @@
+<app-header></app-header>
+<div class="container">
+  <div class="row">
+    <div class="page-heading col-md-6">Top Questions</div>
+    <div class="post-question col-md-6 d-flex justify-content-end">
+      <div>
+        <button
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#askQuestionModal"
+        >
+          Post a Question
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+  <div class="filters">
+    <div class="filter-btn-group m-0 p-0">
+      <button
+        type="button"
+        class="top-filter-tab btn btn-outline-primary rm-right-border-radius active-top-filter"
+        (click)="topFilterApply(0, 'newest')"
+      >
+        Newest
+      </button>
+      <button
+        type="button"
+        class="top-filter-tab btn btn-outline-primary rm-right-border-radius rm-left-border-radius"
+        (click)="topFilterApply(1, 'oldest')"
+      >
+        Oldest
+      </button>
+      <button
+        type="button"
+        class="top-filter-tab btn btn-outline-primary rm-right-border-radius rm-left-border-radius"
+        (click)="topFilterApply(2, 'mostLiked')"
+      >
+        Most Liked
+      </button>
+      <button
+        type="button"
+        class="top-filter-tab btn btn-outline-primary rm-left-border-radius"
+        (click)="topFilterApply(3, 'mostCommented')"
+      >
+        Most commented
+      </button>
+    </div>
+    <div class="filter-tags pt-4 d-flex" (click)="ShowTagSelectionBar()">
+      <img
+        class="filter-tag-img"
+        src="assets/images/filter.jpg"
+        alt="filter icon"
+      />
+      <div class="filter-tag-msg">Filter by Tags</div>
+    </div>
+    <div class="tag-selection-bar">
+      <div class="selection-bar-title">Select your Tags</div>
+      <div>
+        <form class="tags-selections-checkboxes" [formGroup]="tagSelectionForm">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="flexCheckDefault1"
+              formControlName="javaSelection"
+              (change)="tagSelection()"
+            />
+            <label class="form-check-label" for="flexCheckDefault1">
+              JAVA
+            </label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="flexCheckChecked2"
+              formControlName="pythonSelection"
+              (change)="tagSelection()"
+            />
+            <label class="form-check-label" for="flexCheckChecked2">
+              Python
+            </label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="flexCheckDefault3"
+              formControlName="MLSelection"
+              (change)="tagSelection()"
+            />
+            <label class="form-check-label" for="flexCheckDefault3"> ML </label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="flexCheckChecked4"
+              formControlName="frontEndSelection"
+              (change)="tagSelection()"
+            />
+            <label class="form-check-label" for="flexCheckChecked4">
+              Front-End
+            </label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="flexCheckDefault5"
+              formControlName="othersSelection"
+              (change)="tagSelection()"
+            />
+            <label class="form-check-label" for="flexCheckDefault5">
+              Others
+            </label>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="questions-list">
+    <div
+      *ngFor="let question of fetchedAllQuestions; let i = index"
+      class="question-section d-flex"
+      [ngClass]="{ 'blue-background': i % 2 == 0 }"
+    >
+      <div class="left-data">
+        <div>
+          <span>{{ question.votes }}</span> Votes
+        </div>
+        <div>
+          <span>{{ question.commentsCount }}</span> Comments
+        </div>
+      </div>
+      <div class="right-data">
+        <div
+          class="question-title"
+          (click)="navigateToQuestionPage(question.qid, question.title)"
+        >
+          {{ question.title }}
+        </div>
+        <div class="tags-and-user-info">
+          <div class="tags d-flex">
+            <div *ngFor="let tags of question.tags" class="tag">{{ tags }}</div>
+            <!-- <div class="tag">ML</div> -->
+          </div>
+          <div class="user-information">
+            <div>{{ question.author }}</div>
+            <div class="date-posted">
+              {{
+                question.postedOn.toLocaleString() | date: "dd-MM-yyyy hh:mm:ss"
+              }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pagination-tabs">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination d-flex justify-content-center">
+        <li class="page-item pointer-cursor" (click)="previousPage()">
+          <a class="page-link prev-pagination-btn disabled-link" href=""
+            >Previous</a
+          >
+        </li>
+
+        <!-- 
+        <li class="page-item active"><a class="page-link" href="">1</a></li>
+        <li class="page-item"><a class="page-link" href="">2</a></li>
+        <li class="page-item"><a class="page-link" href="">3</a></li>
+        -->
+        <li
+          *ngFor="let pages of paginationTags; let j = index"
+          class="page-item pointer-cursor"
+          [ngClass]="{ active: j == pageNumber - 1 }"
+          (click)="MoveToPage(j + 1)"
+        >
+          <a class="page-link disabled-link">{{ j + 1 }}</a>
+        </li>
+
+        <li class="page-item pointer-cursor" (click)="nextPage()">
+          <a class="page-link next-pagination-btn disabled-link" disabled
+            >Next</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+<app-footer></app-footer>
+
+<!-- Ask question Modal -->
+<app-post-question></app-post-question>

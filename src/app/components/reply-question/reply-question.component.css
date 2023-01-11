@@ -1,0 +1,246 @@
+.container {
+  padding-top: 6rem;
+}
+#questionHeading {
+  font-size: 1.5rem;
+  margin-bottom: 0.2rem;
+  color: #4d4d4d;
+}
+.date-info {
+  padding-left: 0.7rem;
+}
+.date-head {
+  font-weight: 400;
+  color: #4d4d4d;
+}
+.display-content {
+  white-space: pre-wrap;
+}
+.display-none {
+  display: none;
+}
+.question-details {
+  padding-left: 2rem;
+  width: 100%;
+  overflow-wrap: anywhere;
+}
+hr {
+  background-color: #989898;
+}
+.upvote {
+  width: 2rem;
+  cursor: pointer;
+}
+.downvote {
+  width: 2rem;
+  cursor: pointer;
+}
+.question-vote {
+  margin-bottom: 0px;
+  padding-left: 2px;
+  font-size: 25px;
+  color: #585858;
+}
+.question-code {
+  background-color: #e8f8f4;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 11px;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+.tag {
+  font-size: 0.8rem;
+  margin-right: 0.8rem;
+  background: hsl(205, 46%, 92%);
+  padding: 6px;
+  border-radius: 4px;
+  color: hsl(205, 47%, 38%);
+  cursor: pointer;
+  height: 2rem;
+}
+.tag:hover {
+  background: hsl(205, 53%, 88%);
+}
+.tags-and-userAvatar {
+  margin-top: 0.8rem;
+}
+.avatar-img {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
+.user-avatar {
+  padding-left: 0px;
+}
+.uname {
+  color: hsla(206, 100%, 40%, 1);
+  font-size: 13px;
+  margin-bottom: 0px;
+  width: 7rem;
+}
+.author-tag {
+  margin-bottom: 0px;
+  color: hsla(206, 100%, 40%, 1);
+  font-size: 13px;
+  font-weight: 600;
+}
+.avatar-info {
+  position: relative;
+}
+.response-section {
+  padding-top: 3rem;
+}
+#answersHeading {
+  font-size: 1.5rem;
+  margin-bottom: 0.2rem;
+  color: #4d4d4d;
+}
+#replyHeading {
+  font-size: 1.4rem;
+  color: #fafafa;
+  background: #318afc;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.4s;
+}
+#replyHeading:hover {
+  background-color: #0e77fc;
+}
+.answers-pd-top {
+  padding-top: 3rem;
+}
+.reply-section {
+  padding-top: 3rem;
+}
+.reply-label {
+  font-size: 18px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.65);
+}
+.reply-form {
+  transition: 1s;
+}
+.pd-t1 {
+  padding-top: 1rem;
+}
+.mg-t1 {
+  margin-top: 1rem;
+}
+.comment-postedOn {
+  color: rgba(0, 0, 0, 0.7);
+}
+.comment-desc-invalid {
+  color: red;
+  display: none;
+}
+.display {
+  display: block;
+}
+.answer {
+  padding-top: 2rem;
+}
+.cursor-pointer{
+  cursor:pointer;
+}
+.pd-b-emptyComment{
+  padding-bottom: 5.5rem;
+}
+
+/* tick mark animation  */
+
+.checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: #7ac142;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+.modal-body {
+  position: relative;
+  flex: 1 1 auto;
+  padding: 0.5rem;
+  margin: auto;
+  color: rgba(0, 0, 0, 0.75);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+#userExist {
+  width: 50%;
+}
+.sign-up-exists {
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+.checkmark {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 2;
+  stroke: #fff;
+  stroke-miterlimit: 10;
+  margin: 3% auto;
+  box-shadow: inset 0px 0px 0px #7ac142;
+  animation: fill 0.4s ease-in-out 0.4s forwards,
+    scale 0.3s ease-in-out 0.9s both;
+}
+.checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes scale {
+  0%,
+  100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 30px #7ac142;
+  }
+}
+
+/* tick mark animation END */
+
+/* media queries and keyFrames */
+
+@media only screen and (max-width: 768px) {
+  .user-avatar {
+    padding-top: 22px;
+  }
+}
+@media only screen and (max-width: 995px) {
+  .avatar-info {
+    position: relative;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .avatar-info {
+    position: relative;
+    left: 0rem;
+    padding-left: 0px;
+  }
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}

@@ -1,0 +1,281 @@
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="askQuestionModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ask your Question</h5>
+        <img
+          class="pointer-cursor"
+          src="assets/images/close-red.jpg"
+          alt="closeButton"
+          aria-label="button to close ask question popup"
+          data-bs-dismiss="modal"
+        />
+      </div>
+      <form [formGroup]="postQuestionForm">
+        <div class="modal-body">
+          <div class="question-heading form-element">
+            <label for="questionHeading" class="form-label"
+              >Question Heading</label
+            >
+            <small class="mandatory-icon">*</small>
+            <small class="small-msg">(100 characters max)</small>
+            <input
+              type="text"
+              class="form-control"
+              id="questionHeading"
+              placeholder=""
+              formControlName="heading"
+            />
+          </div>
+          <div class="question-description form-element">
+            <label for="questionDesc" class="form-label"
+              >Question Description</label
+            >
+            <small class="mandatory-icon">*</small>
+            <small class="small-msg">(Please describe briefly)</small>
+            <textarea
+              class="form-control"
+              id="questionDesc"
+              rows="3"
+              formControlName="desc"
+            ></textarea>
+          </div>
+          <div class="sample-code form-element">
+            <label for="sampleCode" class="form-label">Sample Code</label>
+            <img
+              id="codeIcon"
+              src="assets/images/code.jpeg"
+              alt="code-icon"
+              aria-label="code icon form input"
+            />
+            <textarea
+              class="form-control"
+              id="sampleCode"
+              rows="10"
+              formControlName="sampleCode"
+            ></textarea>
+            <!-- display code with spaces -->
+            <!--             <div class="display-content" id="sampleCode2" rows="10">
+              {{ code }}
+            </div> -->
+          </div>
+          <div class="tag-selections form-element row">
+            <label class="form-label"
+              >Tags for the Question
+              <small class="mandatory-icon">*</small></label
+            >
+
+            <div class="col-lg-2">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckDefault"
+                  formControlName="javaCheckbox"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                  JAVA
+                </label>
+              </div>
+            </div>
+            <div class="col-lg-2">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckDefault"
+                  formControlName="pythonCheckbox"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                  Python
+                </label>
+              </div>
+            </div>
+            <div class="col-lg-2">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckDefault"
+                  formControlName="mlCheckbox"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                  ML
+                </label>
+              </div>
+            </div>
+            <div class="col-lg-2">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckDefault"
+                  formControlName="frontendCheckbox"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                  Front-End
+                </label>
+              </div>
+            </div>
+            <div class="col-lg-2">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckDefault"
+                  formControlName="othersCheckbox"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                  Others
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <small id="emptyFieldsNotAllowedError" class="display-none"
+          >Mandatory fields cannot be submitted empty</small
+        >
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary ask-modal-bottom"
+            (click)="postQuestion()"
+          >
+            Post your Question
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<button
+  id="postQuestionModalBtn"
+  type="button"
+  class="btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#postQuestionSuccessModal"
+  class="display-none"
+>
+  Launch signup success modal
+</button>
+
+<div
+  class="modal fade"
+  id="postQuestionSuccessModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <button
+        id="closePostQuestionSuccessModal"
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+        class="display-none"
+      ></button>
+
+      <div class="modal-body">Question Posted Succesfully</div>
+      <div>
+        <div>
+          <svg
+            class="checkmark"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 52 52"
+          >
+            <circle
+              class="checkmark__circle"
+              cx="26"
+              cy="26"
+              r="25"
+              fill="none"
+            />
+            <path
+              class="checkmark__check"
+              fill="none"
+              d="M14.1 27.2l7.1 7.2 16.7-16.8"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Login before post a question Modal -->
+<button
+  id="loginPostQuestionBtn"
+  type="button"
+  class="btn btn-primary display-none"
+  data-bs-toggle="modal"
+  data-bs-target="#loginPostQuestionModal"
+>
+  Launch post question Login Modal
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="loginPostQuestionModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content position-modal">
+      <div class="modal-header-2">
+        <h5 class="modal-title-2" id="exampleModalLabel">
+          You are not logged in
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body-modifed">
+        Kindly Login before posting a question
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary bck-red"
+          data-bs-dismiss="modal"
+        >
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          routerLink="/login"
+          data-bs-dismiss="modal"
+        >
+          Login
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
